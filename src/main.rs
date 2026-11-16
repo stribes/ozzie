@@ -1,3 +1,21 @@
-fn main() {
-    println!("Hello, world!");
+use tracing_subscriber::EnvFilter;
+
+pub mod app;
+pub mod env;
+
+#[tokio::main]
+async fn main() -> Result<(), app::Error> {
+    init_tracing();
+
+    let env = env::Env::load()?;
+
+    app::run(env).await
+}
+
+fn init_tracing() {
+    tracing_subscriber::fmt()
+        .with_env_filter(
+            EnvFilter::try_from_default_env().unwrap_or_else(|_| EnvFilter::new("info")),
+        )
+        .init();
 }

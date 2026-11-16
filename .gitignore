@@ -1,1 +1,13 @@
-/target
+# Build output
+target/
+
+# Temporary Files / Backups
+.bk
+~*
+
+# OS
+.DS_STORE
+Thumbs.db
+
+# Environment
+.env
