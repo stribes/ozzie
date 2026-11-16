@@ -1,5 +1,6 @@
 use crate::env::Env;
 
+#[derive(Clone)]
 pub struct State {
     pub env: Env,
 }

@@ -1,6 +1,7 @@
 use tracing_subscriber::EnvFilter;
 
 pub mod app;
+pub mod bot;
 pub mod env;
 pub mod web;
 

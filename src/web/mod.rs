@@ -1,6 +1,6 @@
 use axum::Router;
 
-use crate::app::{Error, state::State};
+use crate::app::{Error, State};
 
 pub fn router(_state: State) -> Router {
     Router::new()
