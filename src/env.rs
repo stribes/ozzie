@@ -1,5 +1,6 @@
 use std::env;
 
+#[allow(non_snake_case)]
 pub struct Env {
     pub WEB_HOST: String,
     pub WEB_PORT: u16,
