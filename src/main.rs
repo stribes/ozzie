@@ -2,6 +2,7 @@ use tracing_subscriber::EnvFilter;
 
 pub mod app;
 pub mod env;
+pub mod web;
 
 #[tokio::main]
 async fn main() -> Result<(), app::Error> {

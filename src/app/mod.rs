@@ -1,14 +1,16 @@
 pub mod state;
 
-use crate::env::Env;
+use crate::{env::Env, web};
 use state::State;
 
 pub type Error = Box<dyn std::error::Error + Send + Sync>;
 
 pub async fn run(env: Env) -> Result<(), Error> {
-    let _state = State::new(env);
+    let state = State::new(env);
 
-    // tokio::try_join!()
+    tokio::try_join!(
+        web::run(state),
+    )?;
 
     Ok(())
 }
