@@ -2,10 +2,13 @@ use std::time::Duration;
 
 use mongodb::{Client, Database, bson::doc, options::ClientOptions};
 
+use super::repos::GuildsRepo;
+
 #[derive(Clone)]
 pub struct Mongo {
     pub client: Client,
     pub db: Database,
+    pub guilds: GuildsRepo,
 }
 
 impl Mongo {
@@ -20,6 +23,18 @@ impl Mongo {
         db.run_command(doc! { "ping": 1 }).await?;
         tracing::info!(db = db_name, "connected to mongodb");
 
-        Ok(Self { client, db })
+        let mongo = Self {
+            guilds: GuildsRepo::new(&db),
+            client,
+            db,
+        };
+
+        mongo.ensure_indexes().await?;
+        Ok(mongo)
+    }
+
+    async fn ensure_indexes(&self) -> mongodb::error::Result<()> {
+        self.guilds.ensure_indexes().await?;
+        Ok(())
     }
 }

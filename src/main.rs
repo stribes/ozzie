@@ -3,6 +3,7 @@ use tracing_subscriber::EnvFilter;
 pub mod app;
 pub mod bot;
 pub mod env;
+pub mod models;
 pub mod mongo;
 pub mod web;
 
