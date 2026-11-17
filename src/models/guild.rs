@@ -3,14 +3,15 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Guild {
     pub guild_id: i64,
-    pub guild_name: String,
+    #[serde(default)]
+    pub prefix: String,
 }
 
 impl Guild {
-    pub fn new(guild_id: i64, guild_name: String) -> Self {
+    pub fn new(guild_id: i64) -> Self {
         Self {
             guild_id,
-            guild_name,
+            prefix: String::new(),
         }
     }
 }

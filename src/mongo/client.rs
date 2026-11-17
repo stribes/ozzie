@@ -2,12 +2,13 @@ use std::time::Duration;
 
 use mongodb::{Client, Database, bson::doc, options::ClientOptions};
 
-use super::repos::GuildsRepo;
+use super::repos::{ConfigRepo, GuildsRepo};
 
 #[derive(Clone)]
 pub struct Mongo {
     pub client: Client,
     pub db: Database,
+    pub config: ConfigRepo,
     pub guilds: GuildsRepo,
 }
 
@@ -24,6 +25,7 @@ impl Mongo {
         tracing::info!(db = db_name, "connected to mongodb");
 
         let mongo = Self {
+            config: ConfigRepo::new(&db),
             guilds: GuildsRepo::new(&db),
             client,
             db,

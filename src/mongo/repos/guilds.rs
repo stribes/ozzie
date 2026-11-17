@@ -1,4 +1,9 @@
-use mongodb::{Collection, Database, IndexModel, bson::doc, options::IndexOptions};
+use mongodb::{
+    Collection, Database, IndexModel,
+    bson::{doc, to_document},
+    options::IndexOptions,
+};
+use serde::Serialize;
 
 use crate::models::Guild;
 
@@ -26,8 +31,21 @@ impl GuildsRepo {
     }
 
     pub async fn upsert(&self, guild: &Guild) -> mongodb::error::Result<()> {
+        let mut values = to_document(guild)?;
+        values.remove("guild_id");
+
+        self.update(guild.guild_id, values).await
+    }
+
+    pub async fn update<T: Serialize>(
+        &self,
+        guild_id: i64,
+        values: T,
+    ) -> mongodb::error::Result<()> {
+        let values = to_document(&values)?;
+
         self.col
-            .replace_one(doc! { "guild_id": guild.guild_id }, guild)
+            .update_one(doc! { "guild_id": guild_id }, doc! { "$set": values })
             .upsert(true)
             .await?;
 
