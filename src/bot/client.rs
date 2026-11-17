@@ -1,7 +1,7 @@
 use poise::Framework;
 use serenity::{Client, all::GatewayIntents};
 
-use crate::app::State;
+use crate::{app::State, bot::events};
 
 type Error = Box<dyn std::error::Error + Send + Sync>;
 
@@ -11,7 +11,15 @@ pub async fn run(state: State) -> Result<(), Error> {
     let token = state.env.DISCORD_TOKEN.clone();
 
     let framework = Framework::<State, Error>::builder()
-        .options(poise::FrameworkOptions::default())
+        .options(poise::FrameworkOptions {
+            event_handler: |_framework, event| {
+                Box::pin(async move {
+                    events::handle(event).await;
+                    Ok(())
+                })
+            },
+            ..Default::default()
+        })
         .setup(move |_ctx, _ready, _framework| Box::pin(async move { Ok(state) }))
         .build();
 
