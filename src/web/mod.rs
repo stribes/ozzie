@@ -1,9 +1,11 @@
+pub mod dashboard;
+
 use axum::Router;
 
 use crate::app::{Error, State};
 
-pub fn router(_state: State) -> Router {
-    Router::new()
+pub fn router(state: State) -> Router {
+    Router::new().merge(dashboard::router()).with_state(state)
 }
 
 pub async fn run(state: State) -> Result<(), Error> {

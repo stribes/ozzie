@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+.yarn/
+
+# Git
+.git/
+
+# Build artifacts
+target/
+.svelte-kit/
+.output/
+build/
+dist/
+target/
+
+# Environment
+.env
+.env.*
+
+# Lockfiles
+Cargo.lock
+yarn.lock

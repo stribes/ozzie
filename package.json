@@ -1,0 +1,34 @@
+{
+    "name": "ozzie",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "license": "AGPL-3.0-only",
+    "imports": {
+        "#lib": "./src-svelte/lib/index.js",
+        "#lib/*": "./src-svelte/lib/*"
+    },
+    "scripts": {
+        "dev": "vite dev",
+        "build": "vite build",
+        "preview": "vite preview",
+        "prepare": "svelte-kit sync || echo ''",
+        "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+        "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+        "format": "prettier . --write",
+        "format:check": "prettier . --check"
+    },
+    "devDependencies": {
+        "@sveltejs/adapter-static": "^4.0.1",
+        "@sveltejs/kit": "^3.2.0",
+        "@sveltejs/vite-plugin-svelte": "^7.3.1",
+        "@tailwindcss/vite": "^4.3.5",
+        "prettier": "^3.10.1",
+        "prettier-plugin-svelte": "^4.1.1",
+        "svelte": "^5.57.3",
+        "svelte-check": "^4.7.8",
+        "tailwindcss": "^4.3.5",
+        "typescript": "^6.0.0",
+        "vite": "^8.3.8"
+    }
+}
